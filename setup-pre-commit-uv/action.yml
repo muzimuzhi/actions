@@ -31,7 +31,7 @@ runs:
 
   steps:
     - name: Setup uv
-      if: ${{ !fromJSON(inputs.uv-if-setup) }}
+      if: ${{ fromJSON(inputs.uv-if-setup) }}
       uses: astral-sh/setup-uv@v6
       with:
         enable-cache: false
