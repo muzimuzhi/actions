@@ -4,7 +4,7 @@ Reusable GitHub Actions
 
 # `setup-pre-commit-uv`
 
-Install `pre-commit` using `uv`, init it and setup caching
+Install [`pre-commit`][pre-commit] using [`uv`][uv], init it and setup caching
 
 All inputs are optional.
 
@@ -21,9 +21,7 @@ All inputs are optional.
 ```
 
 `uv` cache is disabled by default ([why][why-disable-uv-cache]). If needed,
-setup `uv` beforehand, then set `uv-if-setup: false`.
-
-[why-disable-uv-cache]: https://github.com/astral-sh/setup-uv/tree/v6/?tab=readme-ov-file#disable-cache-pruning
+setup `uv` beforehand, then set input `uv-if-setup: false`.
 
 ```yaml
 - name: Setup uv
@@ -36,3 +34,7 @@ setup `uv` beforehand, then set `uv-if-setup: false`.
   with:
     uv-if-setup: false
 ```
+
+[pre-commit]: https://github.com/pre-commit/pre-commit
+[uv]: https://github.com/astral-sh/uv
+[why-disable-uv-cache]: https://github.com/astral-sh/setup-uv/tree/v6/?tab=readme-ov-file#disable-cache-pruning

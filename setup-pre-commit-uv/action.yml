@@ -52,7 +52,7 @@ runs:
 
     # https://pre-commit.com/#github-actions-example
     - name: Prepare a non-existent filename
-      id: generate_filename
+      id: temp_file
       shell: bash
       run: |
         # Prepare a non-existent filename
@@ -69,12 +69,12 @@ runs:
       shell: bash
       run: |
         # Generate cache key
-        tmp_file="${{ steps.generate_filename.outputs.filename }}"
+        tmp_file="${{ steps.temp_file.outputs.filename }}"
+        # https://github.com/pre-commit/action/blob/main/action.yml
         echo "$(python -VV)" > "$tmp_file"
-        echo "PRE_COMMIT_CACHE_HASH=${{ hashFiles(inputs.config-path, steps.generate_filename.outputs.filename) }}" >> $GITHUB_ENV
+        echo "PRE_COMMIT_CACHE_HASH=${{ hashFiles(inputs.config-path, steps.temp_file.outputs.filename) }}" >> $GITHUB_ENV
         rm "$tmp_file"
 
-    # https://github.com/pre-commit/action/blob/main/action.yml
     - name: Restore pre-commit cache
       uses: actions/cache@v4
       with:
