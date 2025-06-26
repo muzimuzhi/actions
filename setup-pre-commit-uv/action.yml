@@ -88,8 +88,7 @@ runs:
     - name: Clean unused pre-commit hooks
       shell: bash
       run: |
-        pre-commit gc \
-          --config ${{ inputs.pre-commit-config-path }}
+        pre-commit gc
 
     - name: Run pre-commit hooks
       if: ${{ fromJSON(inputs.pre-commit-if-run) }}
