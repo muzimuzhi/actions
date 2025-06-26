@@ -34,6 +34,14 @@ runs:
       if: ${{ fromJSON(inputs.uv-if-setup) }}
       uses: astral-sh/setup-uv@v6
       with:
+        # > By default, the uv cache is pruned after every run, removing
+        # pre-built wheels, but retaining any wheels that were built from
+        # source.
+        # https://github.com/astral-sh/setup-uv/tree/v6/?tab=readme-ov-file#disable-cache-pruning
+        # > With uv, it turns out that it's often faster to omit pre-built
+        # wheels from the cache (and instead re-download them from the
+        # registry on each run).
+        # https://docs.astral.sh/uv/concepts/cache/#caching-in-continuous-integration
         enable-cache: false
 
     - name: Install pre-commit

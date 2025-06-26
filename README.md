@@ -20,7 +20,10 @@ All inputs are optional.
     run-args: '--all-files --show-diff-on-failure --color=always'
 ```
 
-If `uv` cache is needed, set `uv-if-setup: false` and setup `uv` manually.
+`uv` cache is disabled by default ([why][why-disable-uv-cache]). If needed,
+setup `uv` beforehand, then set `uv-if-setup: false`.
+
+[why-disable-uv-cache]: https://github.com/astral-sh/setup-uv/tree/v6/?tab=readme-ov-file#disable-cache-pruning
 
 ```yaml
 - name: Setup uv
