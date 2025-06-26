@@ -5,9 +5,9 @@ name: Setup pre-commit
 description: Install pre-commit via uv, init it and setup caching
 
 inputs:
-  uv-skip-setup:
-    description: "Skip uv setup?"
-    default: 'false'
+  uv-if-setup:
+    description: "Setup uv?"
+    default: 'true'
     required: false
   pre-commit-version:
     description: "Version of `pre-commit` to install"
@@ -19,7 +19,7 @@ inputs:
     required: false
   pre-commit-if-run:
     description: "Run pre-commit hooks after setup?"
-    default: 'false'
+    default: 'true'
     required: false
   pre-commit-run-args:
     description: "Arguments to pass to `pre-commit run`"
@@ -31,7 +31,7 @@ runs:
 
   steps:
     - name: Setup uv
-      if: ${{ !fromJSON(inputs.uv-skip-setup) }}
+      if: ${{ !fromJSON(inputs.uv-if-setup) }}
       uses: astral-sh/setup-uv@v6
       with:
         enable-cache: false
