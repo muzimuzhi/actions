@@ -14,10 +14,10 @@ All inputs are optional.
   uses: muzimuzhi/actions/setup-pre-commit-uv@main
   with:
     uv-if-setup: true
-    pre-commit-version: 'latest'
-    pre-commit-config-path: '.pre-commit-config.yaml'
-    pre-commit-if-run: true
-    pre-commit-run-args: '--all-files --show-diff-on-failure --color=always'
+    version: 'latest'
+    config-path: '.pre-commit-config.yaml'
+    if-run: true
+    run-args: '--all-files --show-diff-on-failure --color=always'
 ```
 
 If `uv` cache is needed, set `uv-if-setup: false` and setup `uv` manually.

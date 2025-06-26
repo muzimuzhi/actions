@@ -9,19 +9,19 @@ inputs:
     description: "Setup uv?"
     default: 'true'
     required: false
-  pre-commit-version:
+  version:
     description: "Version of `pre-commit` to install"
     default: 'latest'
     required: false
-  pre-commit-config-path:
+  config-path:
     description: "Path to the pre-commit config file"
     default: '.pre-commit-config.yaml'
     required: false
-  pre-commit-if-run:
+  if-run:
     description: "Run pre-commit hooks after setup?"
     default: 'true'
     required: false
-  pre-commit-run-args:
+  run-args:
     description: "Arguments to pass to `pre-commit run`"
     default: '--all-files --show-diff-on-failure --color=always'
     required: false
@@ -39,7 +39,7 @@ runs:
     - name: Install pre-commit
       shell: bash
       run: |
-        uv tool install pre-commit@${{ inputs.pre-commit-version }}
+        uv tool install pre-commit@${{ inputs.version }}
 
     # https://pre-commit.com/#github-actions-example
     - name: Prepare a non-existent filename
@@ -60,7 +60,7 @@ runs:
       run: |
         tmp_file="${{ steps.generate_filename.outputs.filename }}"
         echo "$(python -VV)" > "$tmp_file"
-        echo "PRE_COMMIT_CACHE_HASH=${{ hashFiles(inputs.pre-commit-config-path, steps.generate_filename.outputs.filename) }}" >> $GITHUB_ENV
+        echo "PRE_COMMIT_CACHE_HASH=${{ hashFiles(inputs.config-path, steps.generate_filename.outputs.filename) }}" >> $GITHUB_ENV
         rm "$tmp_file"
 
     # https://github.com/pre-commit/action/blob/main/action.yml
@@ -78,7 +78,7 @@ runs:
       shell: bash
       run: |
         pre-commit install \
-          --config ${{ inputs.pre-commit-config-path }} \
+          --config ${{ inputs.config-path }} \
           --install-hooks
 
     - name: Clean unused pre-commit hooks
@@ -87,9 +87,9 @@ runs:
         pre-commit gc
 
     - name: Run pre-commit hooks
-      if: ${{ fromJSON(inputs.pre-commit-if-run) }}
+      if: ${{ fromJSON(inputs.if-run) }}
       shell: bash
       run: |
         pre-commit run \
-          --config ${{ inputs.pre-commit-config-path }} \
-          ${{ inputs.pre-commit-run-args }}
+          --config ${{ inputs.config-path }} \
+          ${{ inputs.run-args }}
