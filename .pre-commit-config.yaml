@@ -1,0 +1,52 @@
+# https://pre-commit.com/
+
+# my use case:
+# - muzimuzhi/latex-zutil
+#   https://github.com/muzimuzhi/latex-zutil/blob/main/.pre-commit-config.yaml
+
+# https://pre-commit.ci/#configuration
+ci:
+  skip: [check-spelling]
+
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  # run "pre-commit autoupdate --freeze" to update the version
+  rev: cef0300fd0fc4d2a87a85fa2093c6b283ea36f4b  # frozen: v5.0.0
+  hooks:
+  - id: check-case-conflict
+  - id: check-illegal-windows-names
+  - id: check-merge-conflict
+  - id: check-toml
+  - id: check-yaml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+# https://github.com/rhysd/actionlint/blob/v1.7.7/docs/usage.md#pre-commit
+- repo: https://github.com/rhysd/actionlint
+  rev: 03d0035246f3e81f36aed592ffb4bebf33a03106  # frozen: v1.7.7
+  hooks:
+  - id: actionlint
+- repo: local
+  hooks:
+  # typos bumps version frequently, so use system installation instead of the
+  # official pre-commit hook
+  # https://github.com/crate-ci/typos/blob/master/docs/pre-commit.md
+  # https://github.com/crate-ci/typos/blob/master/.pre-commit-hooks.yaml
+  - id: check-spelling
+    alias: typos
+    name: Check spelling
+    language: system
+    # same as the official `typos` hook args
+    # https://github.com/crate-ci/typos/blob/ebc6aac34e3692b3ce373e13f4145e8980875396/.pre-commit-hooks.yaml
+    entry: typos --write-changes --force-exclude
+# https://pre-commit.com/#meta-hooks
+# "pre-commit run --hook-stage manual"
+- repo: meta
+  hooks:
+  - id: check-hooks-apply
+    stages: [manual]
+  - id: check-useless-excludes
+    stages: [manual]
+  # "pre-commit run identity --hook-stage manual -a" prints all files not
+  # excluded
+  - id: identity
+    stages: [manual]

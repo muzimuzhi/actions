@@ -1,0 +1,19 @@
+# https://github.com/crate-ci/typos/blob/master/docs/reference.md
+
+# my use cases:
+# - latex3/latex3
+#   https://github.com/latex3/latex3/blob/develop/.github/typos.toml
+# - muzimuzhi/latex-zutil
+#   https://github.com/muzimuzhi/latex-zutil/blob/main/_typos.toml
+
+[files]
+# gitignore patterns
+# https://git-scm.com/docs/gitignore#_pattern_format
+extend-exclude = [
+  ".git",
+]
+# for including various config files
+ignore-hidden = false
+
+[default]
+locale = "en-us"
