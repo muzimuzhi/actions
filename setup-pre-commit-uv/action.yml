@@ -82,19 +82,19 @@ runs:
       shell: bash
       run: |
         pre-commit install \
-          --config ${{ pre-commit-config-path }} \
+          --config ${{ inputs.pre-commit-config-path }} \
           --install-hooks
 
     - name: Clean unused pre-commit hooks
       shell: bash
       run: |
         pre-commit gc \
-          --config ${{ pre-commit-config-path }}
+          --config ${{ inputs.pre-commit-config-path }}
 
     - name: Run pre-commit hooks
       if: ${{ fromJSON(inputs.pre-commit-if-run) }}
       shell: bash
       run: |
         pre-commit run \
-          --config ${{ pre-commit-config-path }} \
+          --config ${{ inputs.pre-commit-config-path }} \
           ${{ inputs.pre-commit-run-args }}
