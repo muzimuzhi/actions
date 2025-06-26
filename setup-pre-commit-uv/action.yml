@@ -47,6 +47,7 @@ runs:
     - name: Install pre-commit
       shell: bash
       run: |
+        # Install pre-commit
         uv tool install pre-commit@${{ inputs.version }}
 
     # https://pre-commit.com/#github-actions-example
@@ -54,6 +55,7 @@ runs:
       id: generate_filename
       shell: bash
       run: |
+        # Prepare a non-existent filename
         while true; do
           filename="_tmp_$RANDOM"
           if [ -f "$filename" ]; then
@@ -66,6 +68,7 @@ runs:
     - name: Generate cache hash
       shell: bash
       run: |
+        # Generate cache key
         tmp_file="${{ steps.generate_filename.outputs.filename }}"
         echo "$(python -VV)" > "$tmp_file"
         echo "PRE_COMMIT_CACHE_HASH=${{ hashFiles(inputs.config-path, steps.generate_filename.outputs.filename) }}" >> $GITHUB_ENV
@@ -85,6 +88,7 @@ runs:
     - name: Install pre-commit hooks
       shell: bash
       run: |
+        # Install pre-commit hooks
         pre-commit install \
           --config ${{ inputs.config-path }} \
           --install-hooks
@@ -92,12 +96,14 @@ runs:
     - name: Clean unused pre-commit hooks
       shell: bash
       run: |
+        # Clean unused pre-commit hooks
         pre-commit gc
 
     - name: Run pre-commit hooks
       if: ${{ fromJSON(inputs.if-run) }}
       shell: bash
       run: |
+        # Run pre-commit hooks
         pre-commit run \
           --config ${{ inputs.config-path }} \
           ${{ inputs.run-args }}
