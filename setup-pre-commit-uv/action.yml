@@ -82,8 +82,7 @@ runs:
         path: ${{ env.PRE_COMMIT_HOME || (env.XDG_CACHE_HOME && format('{0}/pre-commit', env.XDG_CACHE_HOME) || '~/.cache/pre-commit') }}
         key: pre-commit-${{ runner.os }}-${{ env.PRE_COMMIT_CACHE_HASH }}
         restore-keys: |
-          pre-commit-${{ runner.os }}-${{ env.PRE_COMMIT_CACHE_HASH }}
-          pre-commit-${{ runner.os }}
+          pre-commit-${{ runner.os }}-
 
     - name: Install pre-commit hooks
       shell: bash
