@@ -1,13 +1,18 @@
-name: pre-commit
+name: Test setup-pre-commit-uv
 
 on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      runs-on:
+        description: "Runs on which image?"
+        default: "ubuntu-latest"
+        required: false
 
 jobs:
   pre-commit:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runs-on || 'ubuntu-latest' }}
 
     steps:
       - name: Checkout repository
