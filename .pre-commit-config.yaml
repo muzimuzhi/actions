@@ -1,4 +1,5 @@
 # https://pre-commit.com/
+# https://pre-commit.com/hooks.html
 
 # my use case:
 # - muzimuzhi/latex-zutil
@@ -25,6 +26,13 @@ repos:
   rev: 03d0035246f3e81f36aed592ffb4bebf33a03106  # frozen: v1.7.7
   hooks:
   - id: actionlint
+# https://check-jsonschema.readthedocs.io/en/latest/precommit_usage.html#check-github-actions
+- repo: https://github.com/python-jsonschema/check-jsonschema
+  rev: a1419a25b3ec6c91a963e044f03f6dc197930b10  # frozen: 0.33.1
+  hooks:
+    - id: check-github-actions
+      files: ^[^\.]*/action\.ya?ml$
+      # args: ['--verbose']
 - repo: local
   hooks:
   # typos bumps version frequently, so use system installation instead of the
