@@ -51,36 +51,21 @@ runs:
         uv tool install pre-commit@${{ inputs.version }}
 
     # https://pre-commit.com/#github-actions-example
-    - name: Prepare a non-existent filename
-      id: temp_file
-      shell: bash
-      run: |
-        # Prepare a non-existent filename
-        while true; do
-          filename="_tmp_$RANDOM"
-          if [ -f "$filename" ]; then
-            continue
-          fi
-          echo "filename=$filename" >> $GITHUB_OUTPUT
-          break
-        done
-
+    # https://github.com/pre-commit/action/blob/main/action.yml
     - name: Generate cache hash
+      id: cache-hash
       shell: bash
       run: |
-        # Generate cache key
-        tmp_file="${{ steps.temp_file.outputs.filename }}"
-        # https://github.com/pre-commit/action/blob/main/action.yml
-        echo "$(python -VV)" > "$tmp_file"
-        echo "PRE_COMMIT_CACHE_HASH=${{ hashFiles(inputs.config-path, steps.temp_file.outputs.filename) }}" >> $GITHUB_ENV
-        rm "$tmp_file"
+        # Generate cache hash
+        echo "$(python -VV)" > "${{ runner.temp }}/py_version"
+        echo "CACHE_HASH=${{ hashFiles(inputs.config-path, format('{0}/py_version', runner.temp)) }}" >> $GITHUB_OUTPUT
 
     - name: Restore pre-commit cache
       uses: actions/cache@v4
       with:
         # https://pre-commit.com/#managing-ci-caches
         path: ${{ env.PRE_COMMIT_HOME || (env.XDG_CACHE_HOME && format('{0}/pre-commit', env.XDG_CACHE_HOME) || '~/.cache/pre-commit') }}
-        key: pre-commit-${{ runner.os }}-${{ env.PRE_COMMIT_CACHE_HASH }}
+        key: pre-commit-${{ runner.os }}-${{ steps.cache-hash.outputs.CACHE_HASH }}
         restore-keys: |
           pre-commit-${{ runner.os }}-
 
