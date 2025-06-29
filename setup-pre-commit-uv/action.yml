@@ -65,9 +65,9 @@ runs:
       with:
         # https://pre-commit.com/#managing-ci-caches
         path: ${{ env.PRE_COMMIT_HOME || (env.XDG_CACHE_HOME && format('{0}/pre-commit', env.XDG_CACHE_HOME) || '~/.cache/pre-commit') }}
-        key: pre-commit-${{ runner.os }}-${{ steps.cache-hash.outputs.CACHE_HASH }}
+        key: pre-commit-${{ runner.os }}-${{ runner.arch }}-${{ steps.cache-hash.outputs.CACHE_HASH }}
         restore-keys: |
-          pre-commit-${{ runner.os }}-
+          pre-commit-${{ runner.os }}-${{ runner.arch }}-
 
     - name: Install pre-commit hooks
       shell: bash
