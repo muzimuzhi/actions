@@ -5,15 +5,15 @@ name: Setup pre-commit
 description: Install pre-commit via uv, init it and setup caching
 
 inputs:
-  uv-if-setup:
+  if-setup-uv:
     description: "Setup uv?"
     default: 'true'
     required: false
   version:
-    description: "Version of `pre-commit` to install"
+    description: "Version of the `pre-commit` to install via uv"
     default: 'latest'
     required: false
-  config-path:
+  config:
     description: "Path to the pre-commit config file"
     default: '.pre-commit-config.yaml'
     required: false
@@ -21,8 +21,8 @@ inputs:
     description: "Run pre-commit hooks after setup?"
     default: 'true'
     required: false
-  run-args:
-    description: "Arguments to pass to `pre-commit run`"
+  args:
+    description: "Arguments passed to `pre-commit run`"
     default: '--all-files --show-diff-on-failure --color=always'
     required: false
 
@@ -31,7 +31,7 @@ runs:
 
   steps:
     - name: Setup uv
-      if: ${{ fromJSON(inputs.uv-if-setup) }}
+      if: ${{ fromJSON(inputs.if-setup-uv) }}
       uses: astral-sh/setup-uv@v6
       with:
         # > By default, the uv cache is pruned after every run, removing
@@ -58,7 +58,7 @@ runs:
       run: |
         # Generate cache hash
         echo "$(python -VV)" > "${{ runner.temp }}/py_version"
-        echo "CACHE_HASH=${{ hashFiles(inputs.config-path, format('{0}/py_version', runner.temp)) }}" >> $GITHUB_OUTPUT
+        echo "CACHE_HASH=${{ hashFiles(inputs.config, format('{0}/py_version', runner.temp)) }}" >> $GITHUB_OUTPUT
 
     - name: Restore pre-commit cache
       uses: actions/cache@v4
@@ -74,7 +74,7 @@ runs:
       run: |
         # Install pre-commit hooks
         pre-commit install \
-          --config ${{ inputs.config-path }} \
+          --config ${{ inputs.config }} \
           --install-hooks
 
     - name: Clean unused pre-commit hooks
@@ -89,5 +89,5 @@ runs:
       run: |
         # Run pre-commit hooks
         pre-commit run \
-          --config ${{ inputs.config-path }} \
-          ${{ inputs.run-args }}
+          --config ${{ inputs.config }} \
+          ${{ inputs.args }}

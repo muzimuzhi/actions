@@ -13,15 +13,15 @@ All inputs are optional.
 - name: Setup pre-commit
   uses: muzimuzhi/actions/setup-pre-commit-uv@main
   with:
-    uv-if-setup: true
+    if-setup-uv: true
     version: 'latest'
-    config-path: '.pre-commit-config.yaml'
+    config: '.pre-commit-config.yaml'
     if-run: true
-    run-args: '--all-files --show-diff-on-failure --color=always'
+    args: '--all-files --show-diff-on-failure --color=always'
 ```
 
 `uv` cache is disabled by default ([why][why-disable-uv-cache]). If needed,
-setup `uv` beforehand, then use this action with `uv-if-setup: false`.
+setup `uv` beforehand, then use this action with `if-setup-uv: false`.
 
 ```yaml
 - name: Setup uv
@@ -32,7 +32,7 @@ setup `uv` beforehand, then use this action with `uv-if-setup: false`.
 - name: Setup pre-commit
   uses: muzimuzhi/actions/setup-pre-commit-uv@main
   with:
-    uv-if-setup: false
+    if-setup-uv: false
 ```
 
 [pre-commit]: https://github.com/pre-commit/pre-commit
