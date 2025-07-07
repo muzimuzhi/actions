@@ -18,7 +18,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install tools
+        uses: taiki-e/install-action@v2
+        with:
+          # supported tools
+          # https://github.com/taiki-e/install-action/blob/main/TOOLS.md
+          tool: typos
+          fallback: none
+
       - name: Setup pre-commit
         uses: ./setup-pre-commit-uv
-        env:
-          SKIP: 'check-spelling'
