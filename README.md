@@ -21,7 +21,7 @@ All inputs are optional.
 ```
 
 `uv` cache is disabled by default ([why][why-disable-uv-cache]). If needed,
-setup `uv` beforehand, then set input `uv-if-setup: false`.
+setup `uv` beforehand, then use this action with `uv-if-setup: false`.
 
 ```yaml
 - name: Setup uv
@@ -38,3 +38,11 @@ setup `uv` beforehand, then set input `uv-if-setup: false`.
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [uv]: https://github.com/astral-sh/uv
 [why-disable-uv-cache]: https://github.com/astral-sh/setup-uv/tree/v6/?tab=readme-ov-file#disable-cache-pruning
+
+# `ppmcheckpdf-deps`
+
+Install dependencies for [`ppmcheckpdf`](https://ctan.org/pkg/ppmcheckpdf)
+LaTeX package or the [`ppmcheckpdf.lua`][ppmcheckpdf.lua] in
+`muzimuzhi/latex-zutil` repository.
+
+[ppmcheckpdf.lua]: https://github.com/muzimuzhi/latex-zutil/blob/main/support/ppmcheckpdf.lua

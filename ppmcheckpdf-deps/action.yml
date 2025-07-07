@@ -1,0 +1,46 @@
+# https://docs.github.com/en/actions/reference/metadata-syntax-for-github-actions
+
+name: Install ppmcheckpdf dependencies
+
+description: Install dependencies for ppmcheckpdf
+
+runs:
+  using: "composite"
+
+  steps:
+    # `ppmcheckpdf` uses
+    # - `pdftoppm` command provided by `poppler` to convert PDF files to
+    #    bitmap images
+    # - `magick` or `compare` command provided by `imagemagick` to generate
+    #    diff images for failed checks
+
+    # imagemagick was pre-installed on Ubuntu 22.04 image, but is removed
+    # from 24.04 image
+    # https://github.com/actions/runner-images/issues/10772
+    - name: Install ppmcheckpdf dependencies (ubuntu)
+      if: runner.os == 'Linux'
+      # actively maintained
+      uses: gerlero/apt-install@v1
+      with:
+        packages: imagemagick poppler-utils
+
+    # imagemagick is pre-installed on both Windows Server 2022 and 2025 images
+    - name: Install ppmcheckpdf dependencies (windows)
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        if [[ ! -x "$(command -v tlmgr)" ]]; then
+            echo "::error::TeX Live Manager (tlmgr) is not available."
+            exit 1
+        fi
+        tlmgr install wintools.windows
+
+    - name: Install ppmcheckpdf dependencies (macos)
+      if: runner.os == 'macOS'
+      shell: bash
+      run: |
+        if [[ ! -x "$(command -v brew)" ]]; then
+            echo "::error::Homebrew (brew) is not available."
+            exit 1
+        fi
+        brew install imagemagick poppler
