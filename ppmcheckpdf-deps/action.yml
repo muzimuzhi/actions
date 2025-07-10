@@ -27,12 +27,12 @@ runs:
     # imagemagick is pre-installed on both Windows Server 2022 and 2025 images
     - name: Install ppmcheckpdf dependencies (windows)
       if: runner.os == 'Windows'
-      shell: bash
+      shell: pwsh
       run: |
-        if ! command -v tlmgr >/dev/null; then
-            echo "::error::TeX Live Manager (tlmgr) is not available."
-            exit 1
-        fi
+        # if ! command -v tlmgr >/dev/null; then
+        #     echo "::error::TeX Live Manager (tlmgr) is not available."
+        #     exit 1
+        # fi
         tlmgr install wintools.windows
 
     - name: Install ppmcheckpdf dependencies (macos)
