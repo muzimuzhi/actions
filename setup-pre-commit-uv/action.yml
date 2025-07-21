@@ -5,7 +5,7 @@ name: Setup pre-commit
 description: Install pre-commit via uv, init it and setup caching
 
 inputs:
-  if-setup-uv:
+  setup-uv:
     description: "Setup uv?"
     default: 'true'
     required: false
@@ -17,7 +17,7 @@ inputs:
     description: "Path to the pre-commit config file"
     default: '.pre-commit-config.yaml'
     required: false
-  if-run:
+  run-pre-commit:
     description: "Run pre-commit hooks after setup?"
     default: 'true'
     required: false
@@ -31,7 +31,7 @@ runs:
 
   steps:
     - name: Setup uv
-      if: ${{ fromJSON(inputs.if-setup-uv) }}
+      if: ${{ fromJSON(inputs.setup-uv) }}
       uses: astral-sh/setup-uv@v6
       with:
         # > By default, the uv cache is pruned after every run, removing
@@ -84,7 +84,7 @@ runs:
         pre-commit gc
 
     - name: Run pre-commit hooks
-      if: ${{ fromJSON(inputs.if-run) }}
+      if: ${{ fromJSON(inputs.run-pre-commit) }}
       shell: bash
       run: |
         # Run pre-commit hooks
