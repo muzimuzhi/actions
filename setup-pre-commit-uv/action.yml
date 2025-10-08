@@ -32,7 +32,7 @@ runs:
   steps:
     - name: Setup uv
       if: ${{ fromJSON(inputs.setup-uv) }}
-      uses: astral-sh/setup-uv@v6
+      uses: astral-sh/setup-uv@v7
       with:
         # > By default, the uv cache is pruned after every run, removing
         # pre-built wheels, but retaining any wheels that were built from
