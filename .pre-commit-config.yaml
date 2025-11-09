@@ -42,7 +42,7 @@ repos:
   - id: check-spelling
     alias: typos
     name: Check spelling
-    language: system
+    language: unsupported
     # same as the official `typos` hook args
     # https://github.com/crate-ci/typos/blob/ebc6aac34e3692b3ce373e13f4145e8980875396/.pre-commit-hooks.yaml
     entry: typos --write-changes --force-exclude
