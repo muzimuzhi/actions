@@ -61,7 +61,7 @@ runs:
         echo "CACHE_HASH=${{ hashFiles(inputs.config, format('{0}/py_version', runner.temp)) }}" >> $GITHUB_OUTPUT
 
     - name: Restore pre-commit cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         # https://pre-commit.com/#managing-ci-caches
         path: ${{ env.PRE_COMMIT_HOME || (env.XDG_CACHE_HOME && format('{0}/pre-commit', env.XDG_CACHE_HOME) || '~/.cache/pre-commit') }}
