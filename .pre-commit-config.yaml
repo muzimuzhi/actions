@@ -5,6 +5,9 @@
 # - muzimuzhi/latex-zutil
 #   https://github.com/muzimuzhi/latex-zutil/blob/main/.pre-commit-config.yaml
 
+# required by "language: unsupported" hooks
+minimum_pre_commit_version: "4.4.0"
+
 # https://pre-commit.ci/#configuration
 ci:
   skip: [check-spelling]
