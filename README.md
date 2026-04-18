@@ -25,7 +25,7 @@ setup `uv` beforehand, then use this action with `setup-uv: false`.
 
 ```yaml
 - name: Setup uv
-  uses: astral-sh/setup-uv@v6
+  uses: astral-sh/setup-uv@v8.1.0
   with:
     enable-cache: true # enabled on GitHub-hosted runners by default
 
