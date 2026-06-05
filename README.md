@@ -25,7 +25,8 @@ setup `uv` beforehand, then use this action with `setup-uv: false`.
 
 ```yaml
 - name: Setup uv
-  uses: astral-sh/setup-uv@v8.1.0
+  # since v8.0.0, astral-sh/setup-uv stopped providing major and minor tags
+  uses: astral-sh/setup-uv@v8.2.0
   with:
     enable-cache: true # enabled on GitHub-hosted runners by default
 
