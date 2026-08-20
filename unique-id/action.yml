@@ -1,0 +1,60 @@
+# Composite action
+# https://docs.github.com/en/actions/reference/workflows-and-actions/metadata-syntax
+name: Generate unique ID
+
+description: Generate a unique ID useful in artifact names
+
+inputs:
+  export-env:
+    description: "Export outputs to environment variables in addition? This allows use of `env.unique_id` instead of the longer `steps.<step_id>.outputs.unique_id` in following steps."
+    default: 'true' # string expected
+    required: false
+
+outputs:
+  os:
+    description: "Context `runner.os` in lowercase"
+    value: ${{ steps.run.outputs.os }}
+  unique_id:
+    description: "Unique id per os, commit, and run attempt: `[<branch>--]<sha1>-<os>[-<run>]`"
+    value: ${{ steps.run.outputs.unique_id }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: main
+      id: run
+      shell: bash
+      run: |
+        set -x
+
+        # full form: [<branch>--]<sha1>-<os>[-<run>]
+        unique_id=""
+
+        # (optional) PR branch name on `pull_request` events
+        # separated by two dashes for better readability, since branch names
+        # may contain dashes themselves
+        if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            unique_id+="-${GITHUB_HEAD_REF//\//_}-"
+        fi
+
+        # short SHA1
+        unique_id+="-${GITHUB_SHA::7}"
+        # os name
+        os="$(echo "$RUNNER_OS" | tr '[:upper:]' '[:lower:]')"
+        unique_id+="-${os}"
+
+        # (optional) run attempt number if > 1
+        if [[ "$GITHUB_RUN_ATTEMPT" -gt 1 ]]; then
+            unique_id+="-${GITHUB_RUN_ATTEMPT}"
+        fi
+
+        # drop the leading dash
+        unique_id="${unique_id#-}"
+
+        echo "os=$os"               >> "$GITHUB_OUTPUT"
+        echo "unique_id=$unique_id" >> "$GITHUB_OUTPUT"
+
+        if [[ "${{ inputs.export-env }}" == "true" ]]; then
+          echo "os=$os"               >> "$GITHUB_ENV"
+          echo "unique_id=$unique_id" >> "$GITHUB_ENV"
+        fi

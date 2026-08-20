@@ -47,3 +47,7 @@ LaTeX package or the [`ppmcheckpdf.lua`][ppmcheckpdf.lua] in
 `muzimuzhi/latex-zutil` repository.
 
 [ppmcheckpdf.lua]: https://github.com/muzimuzhi/latex-zutil/blob/main/support/ppmcheckpdf.lua
+
+# `unique-id`
+
+`unique_id` (`[<branch>--]<sha1>-<os>[-<run>]`) available as action outputs and/or environment variable.
