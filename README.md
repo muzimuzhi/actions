@@ -50,4 +50,4 @@ LaTeX package or the [`ppmcheckpdf.lua`][ppmcheckpdf.lua] in
 
 # `unique-id`
 
-`unique_id` (`[<branch>--]<sha1>-<os>[-<run>]`) available as action outputs and/or environment variable.
+Generate a `unique_id` output for use in e.g., archives. Also exported to environment variable by default.
