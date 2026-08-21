@@ -50,4 +50,4 @@ LaTeX package or the [`ppmcheckpdf.lua`][ppmcheckpdf.lua] in
 
 # `unique-id`
 
-Generate a `unique_id` output for use in e.g., archives. Also exported to environment variable by default.
+Generate a `unique_id` output (in snake case) for use in e.g., archives. Also exported to environment variable by default.
