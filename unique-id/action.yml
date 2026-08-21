@@ -15,7 +15,7 @@ outputs:
     description: "Context `runner.os` in lowercase"
     value: ${{ steps.run.outputs.os }}
   unique_id:
-    description: "Unique id per os, commit, and run attempt: `[pr<pr-number>-]<sha1>-<os>[-<run>]`"
+    description: "Unique id per os, commit, and run attempt: `[pr<pr-number>-]<short-sha>-<os>[-<run>]`"
     value: ${{ steps.run.outputs.unique_id }}
 
 runs:
@@ -27,7 +27,7 @@ runs:
       run: |
         set -x
 
-        # full form: [<pr-number>-]<sha1>-<os>[-<run>]
+        # full form: [<pr-number>-]<short-sha>-<os>[-<run>]
         unique_id=""
 
         # (optional) PR number on `pull_request` events
@@ -35,7 +35,7 @@ runs:
             unique_id+="-pr${{ github.event.number }}"
         fi
 
-        # short SHA1
+        # short SHA
         unique_id+="-${GITHUB_SHA::7}"
         # os name
         os="$(echo "$RUNNER_OS" | tr '[:upper:]' '[:lower:]')"
