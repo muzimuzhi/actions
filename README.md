@@ -6,7 +6,15 @@
 
 ## Reusable GitHub Actions
 
-## `setup-pre-commit-uv`
+### `ppmcheckpdf-deps`
+
+Install dependencies for [`ppmcheckpdf`](https://ctan.org/pkg/ppmcheckpdf)
+LaTeX package or the [`ppmcheckpdf.lua`][ppmcheckpdf.lua] in
+`muzimuzhi/latex-zutil` repository.
+
+[ppmcheckpdf.lua]: https://github.com/muzimuzhi/latex-zutil/blob/main/support/ppmcheckpdf.lua
+
+### `setup-pre-commit-uv`
 
 Install [`pre-commit`][pre-commit] using [`uv`][uv], init it and setup caching
 
@@ -44,14 +52,6 @@ setup `uv` beforehand, then use this action with `setup-uv: false`.
 [uv]: https://github.com/astral-sh/uv
 [why-disable-uv-cache]: https://github.com/astral-sh/setup-uv/tree/v6/?tab=readme-ov-file#disable-cache-pruning
 
-## `ppmcheckpdf-deps`
-
-Install dependencies for [`ppmcheckpdf`](https://ctan.org/pkg/ppmcheckpdf)
-LaTeX package or the [`ppmcheckpdf.lua`][ppmcheckpdf.lua] in
-`muzimuzhi/latex-zutil` repository.
-
-[ppmcheckpdf.lua]: https://github.com/muzimuzhi/latex-zutil/blob/main/support/ppmcheckpdf.lua
-
-## `unique-id`
+### `unique-id`
 
 Generate a `unique_id` output (in snake case) for use in e.g., archives. Also exported to environment variable by default.
