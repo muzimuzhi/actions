@@ -2,8 +2,15 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   // https://docs.renovatebot.com/presets-config/#configrecommended
   "extends": ["config:recommended"],
+  // https://docs.renovatebot.com/configuration-options/#labels
+  // https://docs.renovatebot.com/configuration-options/#addlabels
+  "labels": ["dependencies"],
+  "github-actions": {
+    "addLabels": ["github_actions"]
+  },
   // https://docs.renovatebot.com/modules/manager/pre-commit/
   "pre-commit": {
-    "enabled": true
+    "enabled": true,
+    "addLabels": ["pre_commit"]
   }
 }
