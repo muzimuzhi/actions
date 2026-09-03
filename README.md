@@ -1,8 +1,12 @@
-# Actions
+# Reusable
 
-Reusable GitHub Actions
+## Reusable Renovate config
 
-# `setup-pre-commit-uv`
+[`./renovate-config/default.jsonc`](./renovate-config/default.jsonc)
+
+## Reusable GitHub Actions
+
+## `setup-pre-commit-uv`
 
 Install [`pre-commit`][pre-commit] using [`uv`][uv], init it and setup caching
 
@@ -11,7 +15,7 @@ All inputs are optional.
 ```yaml
 # default values of all inputs
 - name: Setup pre-commit
-  uses: muzimuzhi/actions/setup-pre-commit-uv@main
+  uses: muzimuzhi/reusable/actions/setup-pre-commit-uv@main
   with:
     setup-uv: true
     version: 'latest'
@@ -31,7 +35,7 @@ setup `uv` beforehand, then use this action with `setup-uv: false`.
     enable-cache: true # enabled on GitHub-hosted runners by default
 
 - name: Setup pre-commit
-  uses: muzimuzhi/actions/setup-pre-commit-uv@main
+  uses: muzimuzhi/reusable/actions/setup-pre-commit-uv@main
   with:
     setup-uv: false
 ```
@@ -40,7 +44,7 @@ setup `uv` beforehand, then use this action with `setup-uv: false`.
 [uv]: https://github.com/astral-sh/uv
 [why-disable-uv-cache]: https://github.com/astral-sh/setup-uv/tree/v6/?tab=readme-ov-file#disable-cache-pruning
 
-# `ppmcheckpdf-deps`
+## `ppmcheckpdf-deps`
 
 Install dependencies for [`ppmcheckpdf`](https://ctan.org/pkg/ppmcheckpdf)
 LaTeX package or the [`ppmcheckpdf.lua`][ppmcheckpdf.lua] in
@@ -48,6 +52,6 @@ LaTeX package or the [`ppmcheckpdf.lua`][ppmcheckpdf.lua] in
 
 [ppmcheckpdf.lua]: https://github.com/muzimuzhi/latex-zutil/blob/main/support/ppmcheckpdf.lua
 
-# `unique-id`
+## `unique-id`
 
 Generate a `unique_id` output (in snake case) for use in e.g., archives. Also exported to environment variable by default.

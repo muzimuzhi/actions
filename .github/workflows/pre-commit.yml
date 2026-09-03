@@ -27,4 +27,4 @@ jobs:
           fallback: none
 
       - name: Setup pre-commit
-        uses: ./setup-pre-commit-uv
+        uses: $/actions/setup-pre-commit-uv
