@@ -1,24 +1,8 @@
-// inspiration examples
-// https://github.com/risu729/renovate-config/blob/main/src/default.json5
-// https://github.com/jdx/renovate-config/blob/main/default.json
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  // https://docs.renovatebot.com/presets-config/#configrecommended
   "extends": [
-    "config:recommended",
-    ":automergeDigest",
-    ":automergeMinor",
-    ":configMigration"
-  ],
-  // https://docs.renovatebot.com/configuration-options/#labels
-  // https://docs.renovatebot.com/configuration-options/#addlabels
-  "labels": ["dependencies"],
-  // https://docs.renovatebot.com/modules/manager/
-  "github-actions": {
-    "addLabels": ["github-actions"]
-  },
-  "pre-commit": {
-    "enabled": true,
-    "addLabels": ["pre-commit"]
-  }
+    // shareable config presets
+    // https://docs.renovatebot.com/config-presets/
+    "github>muzimuzhi/reusable//renovate-config/default.jsonc"
+  ]
 }
